@@ -1,7 +1,8 @@
 <template>
   <div class="app-container">
     <header>
-      <h1>Language-Bridge</h1>
+      <h1>🌐 Language Translator</h1>
+      <h2>🔁 Translate English to Hindi & 8 other languages</h2>
     </header>
 
     <main>
@@ -50,7 +51,6 @@ export default {
   },
 
   mounted() {
-    // Try to load translation history from localStorage
     this.loadHistoryFromStorage();
   },
 
@@ -62,7 +62,6 @@ export default {
 
       try {
         const result = await translateText(text, targetLang);
-
         if (result.success) {
           const { translatedText } = result.data;
           this.translatedText = translatedText;
@@ -74,10 +73,10 @@ export default {
             timestamp: new Date().toISOString(),
           });
         } else {
-          this.errorMessage = `Error (${result.error.type}): ${result.error.message}`;
+          this.errorMessage = `❗ Error (${result.error.type}): ${result.error.message}`;
         }
       } catch (unexpectedError) {
-        this.errorMessage = `Unexpected error: ${unexpectedError.message}`;
+        this.errorMessage = `🚨 Unexpected error: ${unexpectedError.message}`;
       } finally {
         this.isLoading = false;
         if (this.$refs.translationForm) {
@@ -87,18 +86,13 @@ export default {
     },
 
     addToHistory(translationItem) {
-      // Add to the beginning of the array
       this.translationHistory.unshift(translationItem);
-
-      // Keep only the most recent maxHistoryItems
       if (this.translationHistory.length > this.maxHistoryItems) {
         this.translationHistory = this.translationHistory.slice(
           0,
           this.maxHistoryItems
         );
       }
-
-      // Save to localStorage
       this.saveHistoryToStorage();
     },
 
@@ -108,9 +102,7 @@ export default {
     },
 
     deleteHistoryItem(index) {
-      // Remove the item at the specified index
       this.translationHistory.splice(index, 1);
-      // Save the updated history to localStorage
       this.saveHistoryToStorage();
     },
 
@@ -128,7 +120,7 @@ export default {
           JSON.stringify(this.translationHistory)
         );
       } catch (error) {
-        console.error("Failed to save history to localStorage:", error);
+        console.error("❌ Failed to save history:", error);
       }
     },
 
@@ -139,8 +131,7 @@ export default {
           this.translationHistory = JSON.parse(savedHistory);
         }
       } catch (error) {
-        console.error("Failed to load history from localStorage:", error);
-        // If there's an error, just start with an empty history
+        console.error("❌ Failed to load history:", error);
         this.translationHistory = [];
       }
     },
@@ -163,7 +154,7 @@ body {
 }
 
 .app-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -174,28 +165,53 @@ header {
 }
 
 h1 {
-  color: #2c3e50;
+  font-size: 2.5rem;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 1.1rem;
+  color: #444;
 }
 
 main {
-  background-color: white;
+  background-color: #fff;
   padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.1);
 }
 
-/* Add some responsive adjustments */
-@media (max-width: 600px) {
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
   .app-container {
-    padding: 10px;
+    padding: 15px;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 0.9rem;
   }
 
   main {
     padding: 15px;
-  }
-
-  h1 {
-    font-size: 24px;
   }
 }
 </style>

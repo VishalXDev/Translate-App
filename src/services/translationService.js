@@ -1,9 +1,3 @@
-/**
- * Translates text from English to the target language using the MyMemory Translation API
- * @param {string} text - The text to translate
- * @param {string} targetLang - The target language code (e.g., 'hi' for Hindi)
- * @returns {Promise<{ success: boolean, data?: object, error?: object }>}
- */
 export async function translateText(text, targetLang = 'hi') {
   if (!text.trim()) {
     return {
@@ -52,10 +46,6 @@ export async function translateText(text, targetLang = 'hi') {
   }
 }
 
-/**
- * Provides available target language options
- * @returns {{ code: string, name: string }[]}
- */
 export function getLanguageOptions() {
   return [
     { code: 'hi', name: 'Hindi' },
@@ -70,11 +60,6 @@ export function getLanguageOptions() {
   ];
 }
 
-/**
- * Uses Web Speech API to read translated text aloud
- * @param {string} text
- * @param {string} lang
- */
 export function speakText(text, lang = 'hi') {
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = lang;

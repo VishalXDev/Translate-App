@@ -79,10 +79,9 @@ export default {
         this.$emit('translate', {
           text: this.sourceText.trim(),
           targetLang: this.targetLanguage,
-          onComplete: this.resetLoadingState // Pass reset callback
+          onComplete: this.resetLoadingState
         });
 
-        // Optional fallback timeout
         setTimeout(() => {
           this.resetLoadingState();
         }, 8000);
@@ -104,6 +103,10 @@ export default {
 <style scoped>
 .translation-form {
   margin-bottom: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 15px;
 }
 
 .form-group {
@@ -114,6 +117,7 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
+  font-size: 1rem;
 }
 
 .form-control {
@@ -121,42 +125,55 @@ label {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 1rem;
   font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+  box-sizing: border-box;
 }
 
 .form-select {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 1rem;
   min-width: 150px;
+  box-sizing: border-box;
 }
 
 .form-actions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
 
 .language-selector {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex: 1 1 auto;
+  min-width: 150px;
 }
 
 .action-buttons {
   display: flex;
   gap: 10px;
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  min-width: 150px;
 }
 
 .btn {
-  padding: 8px 16px;
+  padding: 10px 18px;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s;
+  flex-grow: 1;
+  min-width: 100px;
 }
 
 .btn:disabled {
@@ -180,5 +197,20 @@ label {
 
 .btn-clear:not(:disabled):hover {
   background-color: #e1e1e1;
+}
+
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .language-selector,
+  .action-buttons {
+    justify-content: stretch;
+    min-width: 100%;
+  }
+  .btn {
+    min-width: 100%;
+  }
 }
 </style>

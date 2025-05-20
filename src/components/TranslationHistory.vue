@@ -81,6 +81,11 @@ export default {
   margin-top: 30px;
   padding-top: 20px;
   border-top: 1px solid #e0e0e0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .history-header {
@@ -88,11 +93,14 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 h3 {
   margin: 0;
   color: #333;
+  flex-grow: 1;
 }
 
 .clear-btn {
@@ -104,6 +112,7 @@ h3 {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s;
+  min-width: 120px;
 }
 
 .clear-btn:not(:disabled):hover {
@@ -129,9 +138,11 @@ h3 {
 .history-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 10px 0;
   border-bottom: 1px solid #eeeeee;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .history-item:last-child {
@@ -140,15 +151,19 @@ h3 {
 
 .history-content {
   flex-grow: 1;
+  min-width: 200px;
 }
 
 .history-content p {
   margin: 5px 0;
+  font-size: 0.95rem;
+  word-break: break-word;
 }
 
 .history-actions {
   display: flex;
   gap: 5px;
+  flex-shrink: 0;
 }
 
 .action-btn {
@@ -157,13 +172,26 @@ h3 {
   font-size: 20px;
   cursor: pointer;
   padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  user-select: none;
 }
 
 .action-btn:hover {
-  opacity: 0.8;
+  background-color: #e0e0e0;
 }
 
 .delete-btn {
   color: #e53935;
+}
+
+@media (max-width: 480px) {
+  .history-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .history-actions {
+    justify-content: flex-start;
+  }
 }
 </style>
