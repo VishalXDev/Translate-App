@@ -44,46 +44,56 @@
 </template>
 
 <script>
-import { getLanguageOptions } from '@/services/translationService';
-
 export default {
   name: 'TranslationForm',
-  
+
   data() {
     return {
       sourceText: '',
       targetLanguage: 'hi',
       isLoading: false,
-      languageOptions: getLanguageOptions()
+      languageOptions: [
+        { code: 'hi', name: 'Hindi' },
+        { code: 'es', name: 'Spanish' },
+        { code: 'fr', name: 'French' },
+        { code: 'de', name: 'German' },
+        { code: 'zh-CN', name: 'Chinese (Simplified)' },
+        { code: 'ar', name: 'Arabic' },
+        { code: 'ru', name: 'Russian' },
+        { code: 'ja', name: 'Japanese' },
+        { code: 'ko', name: 'Korean' }
+      ]
     };
   },
-  
+
   computed: {
     canTranslate() {
       return this.sourceText.trim().length > 0;
     }
   },
-  
+
   methods: {
     onTranslate() {
       if (this.canTranslate && !this.isLoading) {
         this.isLoading = true;
         this.$emit('translate', {
           text: this.sourceText.trim(),
-          targetLang: this.targetLanguage
+          targetLang: this.targetLanguage,
+          onComplete: this.resetLoadingState // Pass reset callback
         });
-        
-        // Fallback to reset loading state in case parent component fails to do so
+
+        // Optional fallback timeout
         setTimeout(() => {
-          this.isLoading = false;
-        }, 5000);
+          this.resetLoadingState();
+        }, 8000);
       }
     },
-    
+
     clearText() {
       this.sourceText = '';
+      this.$emit('clear');
     },
-    
+
     resetLoadingState() {
       this.isLoading = false;
     }

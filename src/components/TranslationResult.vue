@@ -1,14 +1,14 @@
 <template>
   <div class="translation-result" v-if="translatedText || errorMessage">
     <h3>Translation:</h3>
-    
+
     <div v-if="errorMessage" class="error-message">
       <p>{{ errorMessage }}</p>
     </div>
-    
+
     <div v-else class="result-container">
       <p class="result-text">{{ translatedText }}</p>
-      
+
       <div class="result-actions">
         <button 
           @click="speakTranslation" 
@@ -35,7 +35,7 @@ import { speakText } from '@/services/translationService';
 
 export default {
   name: 'TranslationResult',
-  
+
   props: {
     translatedText: {
       type: String,
@@ -50,25 +50,24 @@ export default {
       default: ''
     }
   },
-  
+
   computed: {
     canSpeak() {
       return 'speechSynthesis' in window;
     }
   },
-  
+
   methods: {
     speakTranslation() {
       if (this.translatedText && this.canSpeak) {
         speakText(this.translatedText, this.targetLanguage);
       }
     },
-    
+
     copyTranslation() {
       if (this.translatedText) {
         navigator.clipboard.writeText(this.translatedText)
           .then(() => {
-            // Could add a toast notification here
             console.log('Text copied to clipboard');
           })
           .catch(err => {
