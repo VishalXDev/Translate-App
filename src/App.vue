@@ -215,7 +215,7 @@ body {
 }
 
 header {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .header-content {
@@ -224,21 +224,21 @@ header {
   align-items: center;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 20px 30px;
+  border-radius: 15px;
+  padding: 15px 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px;
 }
 
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
 }
 
 .logo-icon {
-  font-size: 3rem;
+  font-size: 2rem;
   background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
   background-clip: text;
   -webkit-background-clip: text;
@@ -247,7 +247,7 @@ header {
 }
 
 .title-section h1 {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   color: white;
   margin: 0;
   font-weight: 700;
@@ -256,34 +256,34 @@ header {
 
 .subtitle {
   color: rgba(255, 255, 255, 0.8);
-  font-size: 1rem;
-  margin: 5px 0 0 0;
+  font-size: 0.85rem;
+  margin: 2px 0 0 0;
   font-weight: 400;
 }
 
 .stats-section {
   display: flex;
-  gap: 20px;
+  gap: 15px;
 }
 
 .stat-item {
   text-align: center;
   background: rgba(255, 255, 255, 0.1);
-  padding: 15px 20px;
-  border-radius: 15px;
+  padding: 10px 15px;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .stat-number {
   display: block;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: white;
 }
 
 .stat-label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -400,15 +400,15 @@ main::before {
   .header-content {
     flex-direction: column;
     text-align: center;
-    padding: 20px;
+    padding: 15px;
   }
 
   .title-section h1 {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 
   .logo-icon {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
   }
 
   main {
@@ -424,11 +424,11 @@ main::before {
 
 @media (max-width: 480px) {
   .title-section h1 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
 
   .subtitle {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   main {

@@ -4,18 +4,176 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="English to Hindi Translator - A Vue.js app to translate English text to Hindi using the MyMemory API" />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free online language translator supporting 20+ languages. Translate English to Hindi, Spanish, French, Chinese, Arabic and more with text-to-speech functionality." />
+    <meta name="keywords" content="translator, language translator, English to Hindi, text translation, speech synthesis, multilingual" />
+    <meta name="author" content="Language Translator App" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Language Translator - Free Online Translation Tool" />
+    <meta property="og:description" content="Translate text between 20+ languages with speech synthesis support" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://your-domain.com" />
+    <meta property="og:image" content="<%= BASE_URL %>og-image.png" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Language Translator - Free Online Translation Tool" />
+    <meta name="twitter:description" content="Translate text between 20+ languages with speech synthesis support" />
+    <meta name="twitter:image" content="<%= BASE_URL %>twitter-image.png" />
+    
+    <!-- Favicon and Icons -->
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <title><%= htmlWebpackPlugin.options.title || 'English to Hindi Translator' %></title>
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= BASE_URL %>apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= BASE_URL %>favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= BASE_URL %>favicon-16x16.png" />
+    <link rel="manifest" href="<%= BASE_URL %>site.webmanifest" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#4f46e5" />
+    <meta name="msapplication-TileColor" content="#4f46e5" />
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://api.mymemory.translated.net" />
+    <link rel="dns-prefetch" href="https://api.mymemory.translated.net" />
+    
+    <!-- Title -->
+    <title><%= htmlWebpackPlugin.options.title || 'Language Translator - Translate Text Online' %></title>
+    
+    <!-- Critical CSS (if any) -->
+    <style>
+      /* Critical above-the-fold styles */
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      
+      #app {
+        min-height: 100vh;
+      }
+      
+      /* Loading spinner */
+      .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #4f46e5;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Hide scrollbar for cleaner look */
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
   </head>
   <body>
+    <!-- No JavaScript fallback -->
     <noscript>
-      <strong>
-        We're sorry, but this translator app doesn't work properly without JavaScript enabled.
-        Please enable JavaScript to continue using the application.
-      </strong>
+      <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem;
+        text-align: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-family: system-ui, -apple-system, sans-serif;
+      ">
+        <div style="
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          padding: 2rem;
+          border-radius: 1rem;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          max-width: 500px;
+        ">
+          <h1 style="margin: 0 0 1rem 0; font-size: 2rem;">Language Translator</h1>
+          <p style="margin: 0 0 1.5rem 0; font-size: 1.1rem; opacity: 0.9;">
+            This application requires JavaScript to function properly.
+          </p>
+          <p style="margin: 0; font-size: 1rem; opacity: 0.8;">
+            Please enable JavaScript in your browser settings and refresh the page to continue.
+          </p>
+          <div style="margin-top: 1.5rem;">
+            <button onclick="location.reload()" style="
+              background: rgba(255, 255, 255, 0.2);
+              border: 1px solid rgba(255, 255, 255, 0.3);
+              color: white;
+              padding: 0.75rem 1.5rem;
+              border-radius: 0.5rem;
+              cursor: pointer;
+              font-size: 1rem;
+              transition: all 0.2s;
+            " onmouseover="this.style.background='rgba(255, 255, 255, 0.3)'" 
+               onmouseout="this.style.background='rgba(255, 255, 255, 0.2)'">
+              Refresh Page
+            </button>
+          </div>
+        </div>
+      </div>
     </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    
+    <!-- Main app container -->
+    <div id="app">
+      <!-- Loading placeholder while Vue app loads -->
+      <div id="app-loading" style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      ">
+        <div style="text-align: center;">
+          <div class="loading-spinner" style="margin-bottom: 1rem;"></div>
+          <p style="color: #6b7280; font-size: 1rem; margin: 0;">Loading translator...</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Service Worker Registration (optional) -->
+    <script>
+      // Remove loading placeholder when Vue app mounts
+      window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          const loading = document.getElementById('app-loading');
+          if (loading && loading.parentNode) {
+            loading.style.display = 'none';
+          }
+        }, 100);
+      });
+      
+      // Register service worker for offline functionality (optional)
+      if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
